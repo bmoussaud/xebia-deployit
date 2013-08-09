@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.xebialabs.com/deployit/synthetic"
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+  <type-modification type="tests2.ExecutedHttpPostRequestTest" >
+    <property name="createOrder" kind="integer" hidden="false" default="102" />
+    <property name="noopOrder" kind="integer" hidden="false" default="102" />
+    <property name="applyNotCriteria" kind="boolean" category="Amsterdam" default="false" required="false" />
+  </type-modification>
+
+  <type-modification type="udm.Environment">
+    <property name="requiresCCBClearance" description="Release ccb approval required" kind="boolean" required="false" category="Deployment Checklist" />
+    <property name="requiresPerformanceTested" description="Performance testing is required" kind="boolean" required="false" category="Deployment Checklist" />
+  </type-modification>
+
+  <type-modification type="udm.Version">
+    <property name="satisfiesCCBClearance" description="Indicates the package is ready for production deployment" kind="boolean" required="false" category="Deployment Checklist"/>
+    <property name="rolesCCBClearance" kind="set_of_string" hidden="true" default="DMO" />
+    <property name="satisfiesPerformanceTested" description="Indicates the package has been performance tested" kind="boolean" required="false" category="Deployment Checklist"/>
+    <property name="rolesPerformanceTested" kind="set_of_string" hidden="true" default="SGI" />
+  </type-modification>
+
+  <type-modification type="wls.DataSource">
+    <property name="JDBCConnectionPoolParams_TestConnectionsOnReserve"
+              category="Connection Pool" label="Test Connections On Reserve"
+              kind="boolean" required="false" default="true"
+              description="Enables WebLogic Server to test a connection before giving it to a client. (Requires that you specify a Test Table Name.)"/>
+    <property name="JDBCConnectionPoolParams_TestFrequencySeconds"
+              category="Connection Pool" label="Test Frequency (Seconds)"
+              kind="integer" required="false" default="120"
+              description="The number of seconds a WebLogic Server instance waits between attempts when testing unused connections. (Requires that you specify a Test Table Name.) Connections that fail the test are closed and reopened to re-establish a valid physical connection. If the test fails again, the connection is closed."/>
+    <property name="JDBCConnectionPoolParams_TestTableName"
+              category="Connection Pool" label="Test Table Name"
+              kind="string" required="false" default="DUAL"
+              description="The name of the database table to use when testing physical database connections. This name is required when you specify a Test Frequency and enable Test Reserved Connections."/>
+  </type-modification>
+  <type-modification type="osb.Configuration">
+    <property name="textFileNamesRegex" kind="string" hidden="true" default=".+\.(cfg | conf | config | ini | properties | props | txt | asp | aspx | htm | html | jsf | jsp | xht | xhtml | sql | xml | xsd | xsl | xslt | ServiceAccount | ProxyService | BusinessService | ServiceProvider)" />
+  </type-modification>
+</synthetic>

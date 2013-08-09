@@ -1,0 +1,64 @@
+from java.util import HashSet
+from java.util import Properties
+from java.io import FileReader
+from java.io import FileWriter
+
+def loadProps(propertiesFile):
+  props = Properties()
+  reader = FileReader(propertiesFile)
+  try:
+    props.load(reader)
+  except:
+    print 'ERROR: Unable to load properties from', propertiesFile
+  finally:
+    reader.close()
+  return props
+
+def saveProps(props, targetFile, comment=""):
+  writer = FileWriter(targetFile)
+  try:
+    props.store(writer, comment)
+  except IOError, Arg:
+    print Arg.getMessage()
+    print 'ERROR: Unable to save properties to', targetFile
+  finally:
+    writer.close()
+  return
+
+def importIntoDict(propertiesFile, dictName, overwriteExisting=False):
+  try:
+    dict = repository.read('Environments/' + dictName)
+  except:
+    print "ERROR: Unknown Dictionary '%s'. Please verify that an item with ID 'Environments/%s' exists in the repository" % (dictName, dictName)
+    return
+  props = loadProps(propertiesFile)
+  if not props:
+    print "ERROR: No properties loaded"
+    return
+  # copy, no live view
+  existingKeys = HashSet(dict.entries.keySet())
+  for prop in props.entrySet():
+    key = prop.key
+    if key in existingKeys:
+      if overwriteExisting:
+        print "Overwriting existing value for key '%s'." % (key)
+        dict.entries[key] = prop.value
+      else:
+        print "Dictionary already contains key '%s'. Skipping." % (key)
+    else:
+      dict.entries[key] = prop.value
+  print "Saving updated dictionary", dictName
+  repository.update(dict)
+  return dict
+
+def exportFromDict(dictName, targetFile):
+  try:
+    dict = repository.read('Environments/' + dictName)
+  except:
+    print "ERROR: Unknown Dictionary '%s'. Please verify that an item with ID 'Environments/%s' exists in the repository" % (dictName, dictName)
+    return
+  props = Properties()
+  for entry in dict.entries.entrySet():
+    props.put(entry.key, entry.value)
+  saveProps(props, targetFile, "Export of " + dictName)
+  return
