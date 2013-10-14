@@ -20,6 +20,7 @@ define deployit::ci::directory (
 ) {
 
   @@deployit_ci { $id:
-    type => 'core.Directory',
+    type       => 'core.Directory',
+    properties => {},
   }
 }

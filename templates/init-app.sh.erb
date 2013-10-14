@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DEPLOYIT_CLI_HOME=<%= @cli_dir %>
+DEPLOYIT_UTILS_HOME=<%= @utils_dir %>
+
+exec $DEPLOYIT_CLI_HOME/bin/cli.sh -f $DEPLOYIT_UTILS_HOME/init-app.py $@ 

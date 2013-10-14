@@ -1,10 +1,10 @@
-# == Defined Type: deployit::ci::osb_domain
+# == Defined Type: deployit::ci::wls_domain
 #
-# This defined type creates a osb.Domain
+# This defined type creates a wls.Domain
 #
 # === Examples
 #
-# deployit::ci::osb_domain { 'Infrastructure/test':
+# deployit::ci::wls_domain { 'Infrastructure/test':
 # }
 #
 # === Parameters
@@ -23,32 +23,31 @@
 #
 # === Deployit CI
 #
-# <osb.Domain id="${id}">
+# <wls.Domain id="${id}">
 #   <tags>
 #     <value>${tags}</value>
 #   </tags>
-#   <host ref="${host}"/>
-#   <version>WEBLOGIC_11</version>
-#   <wlHome>/opt/osb/wlserver_10.3</wlHome>
+#   <host ref="${host_ref}"/>
+#   <version>WEBLOGIC_12</version>
+#   <wlHome>/opt/weblogic/wlserver_12.1</wlHome>
 #   <port>7001</port>
 #   <username>weblogic</username>
 #   <password>${password}</password>
 #   <protocol>t3</protocol>
 #   <adminServerName>AdminServer</adminServerName>
 #   <startMode>NodeManager</startMode>
-#   <osbHome>/opt/osb/Oracle_OSB</osbHome>
-# </osb.Domain>
+# </wls.Domain>
 #
-define deployit::ci::osb_domain (
+define deployit::ci::wls_domain (
   $host_ref,
   $password,
-  $version   = 'WEBLOGIC_11',
+  $version   = 'WEBLOGIC_12',
   $id        = $title,
   $discovery = false,
   $tags      = {},
 ) {
   @@deployit_ci { $id:
-    type       => 'osb.Domain',
+    type       => 'wls.Domain',
     discovery  => $discovery,
     properties => {
       'protocol'        => 't3',
@@ -57,8 +56,7 @@ define deployit::ci::osb_domain (
       'username'        => 'weblogic',
       'password'        => $password,
       'version'         => $version,
-      'wlHome'          => '/opt/osb/wlserver_10.3',
-      'osbHome'         => '/opt/osb/Oracle_OSB',
+      'wlHome'          => '/opt/weblogic/wlserver_12.1',
       'adminServerName' => 'AdminServer',
       'startMode'       => 'NodeManager',
       'tags'            => $tags,

@@ -26,7 +26,7 @@ class deployit::install (
 
   # Resources
   package { ['deployit-server', 'deployit-cli']:
-    ensure => installed,
+    ensure => "${version}-jep",
   }
 
   package { ['xml-simple', 'rest-client']:

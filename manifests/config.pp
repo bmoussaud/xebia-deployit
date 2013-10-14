@@ -22,7 +22,9 @@ class deployit::config (
   # Dependencies
   File[ "${server_dir}/conf/deployit.conf",
         'deployit server plugins',
+        'deployit server default properties',
         'deployit server ext',
+        'deployit server hotfix',
         'deployit cli ext']
     -> Ini_setting[ 'deployit.http.port',
                     'deployit.jcr.repository.path',
@@ -50,11 +52,24 @@ class deployit::config (
   # Resources
   file { "${server_dir}/conf/deployit.conf": }
 
+  file { 'deployit server default properties':
+    source       => 'puppet:///modules/deployit/server-conf/deployit-defaults.properties',
+    path         => "${server_dir}/conf/deployit-defaults.properties",
+  }
+
   file { 'deployit server plugins':
     source       => ['puppet:///modules/deployit/plugins/', "${server_dir}/available-plugins"],
     sourceselect => 'all',
-    recurse      => 'remote',
+    recurse      => true,
+    purge        => true,
     path         => "${server_dir}/plugins",
+  }
+
+  file { 'deployit server hotfix':
+    source       => 'puppet:///modules/deployit/hotfix/',
+    recurse      => true,
+    purge        => true,
+    path         => "${server_dir}/hotfix",
   }
 
   file { 'deployit server ext':

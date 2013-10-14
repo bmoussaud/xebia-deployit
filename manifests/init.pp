@@ -15,7 +15,7 @@
 # Copyright (c) 2013, Gemeente Amsterdam, All rights reserved.
 #
 class deployit (
-  $version                  = $deployit::params::version,
+  $version,
   $base_dir                 = $deployit::params::base_dir,
   $tmp_dir                  = $deployit::params::tmp_dir,
   $os_user                  = $deployit::params::os_user,
@@ -35,6 +35,7 @@ class deployit (
 
   anchor { 'deployit::begin': }
     -> class { 'deployit::install': }
+    -> class { 'deployit::utils': }
     -> class { 'deployit::config': }
     ~> class { 'deployit::service': }
     -> anchor { 'deployit::end': }

@@ -3,7 +3,6 @@
 # Default parameters for deployit
 #
 class deployit::params {
-  $version                  = '3.9.2'
   $base_dir                 = '/opt/deployit'
   $tmp_dir                  = '/var/tmp'
   $os_user                  = 'deployit'
