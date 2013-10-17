@@ -85,7 +85,7 @@ class deployit::config (
   }
 
   ini_setting {
-    'deployit.admin.password':           setting => 'admin.password',           value => $admin_password,          overwrite => false;
+    'deployit.admin.password':           setting => 'admin.password',           value => $admin_password;
     'deployit.http.port':                setting => 'http.port',                value => $http_port;
     'deployit.jcr.repository.path':      setting => 'jcr.repository.path',      value => $jcr_repository_path;
     'deployit.ssl':                      setting => 'ssl',                      value => $ssl;
