@@ -16,7 +16,7 @@ class deployit::install (
 
   case $::osfamily {
     'RedHat' : { $xtra_packages = ['unzip', 'java-1.6.0-openjdk'] }
-    default  : { fail("${osfamily}:${operatingsystem} not supported by this module") }
+    default  : { fail("${::osfamily}:${::operatingsystem} not supported by this module") }
   }
 
   # Dependencies
@@ -39,7 +39,7 @@ class deployit::install (
   #user and group
 
   group{$os_group:
-    ensure => 'present'  
+    ensure => 'present'
   }
 
   user{$os_user:
@@ -48,11 +48,22 @@ class deployit::install (
     managehome  => true
   }
 
-  package{$xtra_packages: ensure => present }
+  package{ $xtra_packages: ensure => present }
 
+  #check to see if where on a redhatty system and shut iptables down quicker than you can say wtf
+  case $::osfamily {
+    'RedHat' : { service{'iptables': ensure => stopped }
+
+                  Service['iptables']
+                    -> File['/etc/deployit', '/var/log/deployit']
+              }
+    default : {}
+  }
+
+  # check the install_type and act accordingly
   case $install_type {
-    'puppetfiles' : { 
-                      $server_zipfile = "deployit-${version}-server.zip" 
+    'puppetfiles' : {
+                      $server_zipfile = "deployit-${version}-server.zip"
                       $cli_zipfile    = "deployit-${version}-cli.zip"
 
 
@@ -94,12 +105,12 @@ class deployit::install (
                         cwd     => $tmp_dir,
                         user    => $os_user
                       }
-                      
+
                       Package[$xtra_packages]
-                        -> File[$base_dir] 
-                        -> File[$cli_dir,$server_dir] 
+                        -> File[$base_dir]
+                        -> File[$cli_dir,$server_dir]
                         -> File["${tmp_dir}/${server_zipfile}","${tmp_dir}/${cli_zipfile}"]
-                        -> Exec["unpack server file", "unpack cli file"] 
+                        -> Exec['unpack server file', 'unpack cli file']
                         -> File['/etc/deployit', '/var/log/deployit']
                     }
     'packages'    : { package { ['deployit-server', 'deployit-cli']:
@@ -112,7 +123,7 @@ class deployit::install (
                     }
     default       : {}
   }
-  
+
 
   package { ['xml-simple', 'rest-client']:
     ensure   => installed,
@@ -140,5 +151,6 @@ class deployit::install (
     group   => 'root',
     mode    => '0700'
   }
+
 
 }

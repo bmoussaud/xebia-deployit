@@ -15,7 +15,7 @@
 # Copyright (c) 2013, Gemeente Amsterdam, All rights reserved.
 #
 class deployit (
-  $version,
+  $version                  = $deployit::params::version,
   $base_dir                 = $deployit::params::base_dir,
   $tmp_dir                  = $deployit::params::tmp_dir,
   $os_user                  = $deployit::params::os_user,
@@ -23,7 +23,7 @@ class deployit (
   $ssl                      = $deployit::params::ssl,
   $http_bind_address        = $deployit::params::http_bind_address,
   $http_port                = $deployit::params::http_port,
-  $http_context_root        = '/',
+  $http_context_root        = $deployit::params::http_context_root,
   $admin_password           = $deployit::params::admin_password,
   $jcr_repository_path      = $deployit::params::jcr_repository_path,
   $importable_packages_path = $deployit::params::importable_packages_path,
