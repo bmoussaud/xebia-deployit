@@ -13,7 +13,7 @@
 #
 # === Copyright
 #
-# Copyright (c) 2013, Gemeente Amsterdam, All rights reserved.
+# Copyright (c) 2013, Xebia Nederland b.v., All rights reserved.
 #
 define deployit::ci::directory (
   $id = $title,
