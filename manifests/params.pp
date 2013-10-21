@@ -13,7 +13,7 @@ class deployit::params {
   $http_bind_address        = '0.0.0.0'
   $http_server_address      = $::ipaddress_eth1
   $http_port                = '4516'
-  $http_context_root        = '/'
+  $http_context_root        = '/deployit'
   $admin_password           = 'admin'
   $jcr_repository_path      = 'repository'
   $importable_packages_path = 'importablePackages'
@@ -28,6 +28,13 @@ class deployit::params {
     $rest_protocol = 'http://'
   }
 
-  $rest_url = "${rest_protocol}admin:${admin_password}@${http_server_address}${http_context_root}"
+  if $http_context_root == '/' {
 
+    $rest_url = "${rest_protocol}admin:${admin_password}@${http_server_address}:${http_port}/deployit"
+
+  } else {
+
+    $rest_url = "${rest_protocol}admin:${admin_password}@${http_server_address}:${http_port}${http_context_root}/deployit"
+
+  }
 }

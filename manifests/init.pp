@@ -51,6 +51,7 @@ class deployit (
       -> class { 'deployit::utils': }
       -> class { 'deployit::config': }
       ~> class { 'deployit::service': }
+      -> class { 'deployit::import': }
       -> anchor { 'deployit::end': }
   }
   else

@@ -34,15 +34,16 @@ class deployit::client::user(
   }
 
   if str2bool($client_sudo) {
-    include sudo
 
-    sudoers{$os_user:
-      ensure    => present,
-      users     => [$os_user],
-      commands  => [
-        'ALL=(ALL) NOPASSWD: ALL'
-      ],
+    file {'/etc/sudoers.d':
+      ensure => directory }
+
+    file {'/etc/sudoers.d/50_deployit':
+      ensure  => present,
+      content => template('deployit/deployit_sudoers.erb')
     }
+
+
   }
 
 
