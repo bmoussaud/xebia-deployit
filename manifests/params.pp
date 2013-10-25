@@ -20,7 +20,7 @@ class deployit::params {
   $install_type             = 'puppetfiles'
   $client_sudo              = true
   $client_user_password     = 'deployit'
-  $use_exported_resources     = false
+  $use_exported_resources   = false
 
   if str2bool($ssl) {
     $rest_protocol = 'https://'
