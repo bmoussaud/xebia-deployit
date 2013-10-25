@@ -1,0 +1,5 @@
+spec/fixtures/*
+.DS_*
+.rspec_system
+vendor/*
+*.zip

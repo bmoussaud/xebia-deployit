@@ -6,6 +6,7 @@ require 'logger'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
+require 'rspec-system/rake_task'
 
 # paths not to include in any check lint or syntax
 exclude_paths = [

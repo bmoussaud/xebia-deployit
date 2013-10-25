@@ -1,4 +1,0 @@
-Listen 80
-
-ProxyPass <%= scope.lookupvar('deployit::http_context_root') %> http://<%= scope.lookupvar('deployit::http_bind_address') %>:<%= scope.lookupvar('deployit::http_port') %><%= scope.lookupvar('deployit::http_context_root') %> retry=0
-ProxyPassReverse <%= scope.lookupvar('deployit::http_context_root') %> http://<%= scope.lookupvar('deployit::http_bind_address') %>:<%= scope.lookupvar('deployit::http_port') %><%= scope.lookupvar('deployit::http_context_root') %>

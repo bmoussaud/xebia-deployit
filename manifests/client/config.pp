@@ -15,13 +15,14 @@
 class deployit::client::config(
   $rest_url         = $deployit::rest_url,
   $client_cis       = $deployit::client_cis,
-  $export_resources = $deployit::export_resources ){
+  $use_exported_resources = $deployit::use_exported_resources ){
 
+  notify{'test': message => $client_cis}
   # overwrite the rest_url parameter
   Deployit_ci{rest_url => $rest_url}
 
   # create all the ci's specified in the $client_cis varialbe
-  if str2bool($export_resources) {
+  if str2bool($use_exported_resources) {
     create_resources('@@deployit_ci', $client_cis)
   } else {
     create_resources(deployit_ci, $client_cis)

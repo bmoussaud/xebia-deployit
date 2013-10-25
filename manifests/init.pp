@@ -33,7 +33,7 @@ class deployit (
   $client_user_password     = $deployit::params::client_user_password,
   $install_type             = $deployit::params::install_type,
   $rest_url                 = $deployit::params::rest_url,
-  $export_resources         = $deployit::params::export_resources,
+  $use_exported_resources   = $deployit::params::use_exported_resources,
   $client_cis               = { }
 ) inherits deployit::params {
 

@@ -2,9 +2,11 @@ require 'spec_helper'
 
 describe 'deployit' do
 
+
   context 'supported operating systems' do
     ['RedHat'].each do |osfamily|
       describe "deployit class without any parameters on #{osfamily}" do
+
         let(:params) {{ }}
         let(:facts) {{
           :osfamily => osfamily,
@@ -103,13 +105,13 @@ describe 'deployit' do
 
       it { expect {should}.to raise_error(Puppet::Error, /"bogus" is not a Hash/) }
     end
-    describe "with parameter export_resources switched on" do
+    describe "with parameter use_exported_resources switched on" do
       let(:params) {{ :server => 'false',
                       :client_cis => { '/Infrastructure/TestHost' => { 'ensure' => 'present',
                                                                        'discovery' => 'false',
                                                                        'properties' => {'password' => 'test'},
                                                                        'type' => 'overthere.SshHost'}},
-                      :export_resources => 'true'
+                      :use_exported_resources => 'true'
                    }}
       it { should_not create_deployit_ci('/Infrastructure/TestHost') }
     end

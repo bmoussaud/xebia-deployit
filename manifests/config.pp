@@ -25,7 +25,8 @@ class deployit::config (
         'deployit server default properties',
         'deployit server ext',
         'deployit server hotfix',
-        'deployit cli ext']
+        'deployit cli ext',
+        '/etc/deployit']
     -> Ini_setting[ 'deployit.http.port',
                     'deployit.jcr.repository.path',
                     'deployit.ssl',
@@ -41,6 +42,7 @@ class deployit::config (
     group  => $os_group,
     ensure => present,
     mode   => '0640',
+    ignore => '.gitkeep'
   }
 
   Ini_setting {
@@ -53,8 +55,9 @@ class deployit::config (
   file { "${server_dir}/conf/deployit.conf": }
 
   file { 'deployit server default properties':
-    source       => 'puppet:///modules/deployit/server-conf/deployit-defaults.properties',
-    path         => "${server_dir}/conf/deployit-defaults.properties",
+    source       => 'puppet:///modules/deployit/server-conf/',
+    recurse      => true,
+    path         => "${server_dir}/conf",
   }
 
   file { 'deployit server plugins':
@@ -98,6 +101,11 @@ class deployit::config (
     creates   => "${server_dir}/repository",
     command   => "${server_dir}/bin/server.sh -setup -reinitialize -force -setup-defaults ${server_dir}/conf/deployit.conf",
     user      => $os_user,
+  }
+
+  file { '/etc/deployit':
+    ensure => link,
+    target => "${server_dir}/conf";
   }
 }
 

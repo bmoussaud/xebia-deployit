@@ -19,11 +19,13 @@ class deployit::install (
     default  : { fail("${::osfamily}:${::operatingsystem} not supported by this module") }
   }
 
+  if $::pe_version != undef { $gem_provider = 'pe_gem'} else { $gem_provider = 'gem' }
+
   # Dependencies
   Group[$os_group]
     -> User[$os_user]
     -> Package[$xtra_packages]
-    -> File['/etc/deployit', '/var/log/deployit']
+    -> File[ '/var/log/deployit']
     -> File['/etc/init.d/deployit']
 
   # Resource defaults
@@ -127,14 +129,11 @@ class deployit::install (
 
   package { ['xml-simple', 'rest-client']:
     ensure   => installed,
-    provider => 'pe_gem',
+    provider => $gem_provider,
   }
 
   # convenience links
-  file { '/etc/deployit':
-    ensure => link,
-    target => "${server_dir}/conf";
-  }
+
 
   file { '/var/log/deployit':
     ensure => link,
