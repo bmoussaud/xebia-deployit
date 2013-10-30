@@ -1,9 +1,9 @@
 ---
 './files/sources/deployit-3.9.3-server.zip':
    download_url: "https://tech.xebialabs.com/download/deployit/3.9.3/deployit-3.9.3-server.zip"
-   username: 'download'
-   password: 'X3b1aL@bs'
+   username:
+   password:
 './files/sources/deployit-3.9.3-cli.zip':
    download_url: "https://tech.xebialabs.com/download/deployit/3.9.3/deployit-3.9.3-cli.zip"
-   username: 'download'
-   password: 'X3b1aL@bs'
+   username:
+   password:
