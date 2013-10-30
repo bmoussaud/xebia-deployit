@@ -45,6 +45,7 @@ class deployit::validation(){
 
   #hash validation
   validate_hash($deployit::client_cis)
+  validate_hash($deployit::server_cis)
 
   ## contence validation
   # check validity of this module on the specific system

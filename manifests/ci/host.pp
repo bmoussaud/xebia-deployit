@@ -1,4 +1,4 @@
-# == Defined Type: deployit::ci::host
+sud# == Defined Type: deployit::ci::host
 #
 # This defined type creates a overthere.SshHost
 #

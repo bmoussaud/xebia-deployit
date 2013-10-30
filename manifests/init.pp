@@ -34,7 +34,8 @@ class deployit (
   $install_type             = $deployit::params::install_type,
   $rest_url                 = $deployit::params::rest_url,
   $use_exported_resources   = $deployit::params::use_exported_resources,
-  $client_cis               = { }
+  $client_cis               = {},
+  $server_cis               = {},
 ) inherits deployit::params {
 
   #include validation class to check our input

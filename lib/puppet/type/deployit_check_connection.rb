@@ -21,7 +21,7 @@ Puppet::Type.newtype(:deployit_check_connection) do
 
   newparam(:timeout) do
 
-    defaultto 15
+    defaultto 45
 
     validate do |value|
       # This will raise an error if the string is not an integer
