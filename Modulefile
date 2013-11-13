@@ -9,5 +9,5 @@ summary 'Puppet module for splunk'
 description 'This module can be used to install and configure a splunk infrastructure'
 
 dependency 'puppetlabs/stdlib', '>= 4.1.0'
-dependency 'puppetlabs/pe_gem'
-dependency 'puppetlabs/inifile'
+dependency 'puppetlabs/pe_gem', '>= 1.0.0'
+dependency 'puppetlabs/inifile', '>= 1.0.0'
