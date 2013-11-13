@@ -70,8 +70,8 @@ describe 'deployit' do
                       :os_user => 'deployit',
                       :server => 'false' }}
 
-      it { should include_class('sudo') }
-      it { should create_sudoers('deployit').with_users('deployit')}
+      it { should include_class('deployit::client::user') }
+      it { should create_file('/etc/sudoers.d/50_deployit').with_content(/deployit*/) }
 
     end
     describe "with parameter client_sudo set to false" do

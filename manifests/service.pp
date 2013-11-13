@@ -2,7 +2,7 @@
 #
 # This class manages the deployit service
 class deployit::service {
-  service { 'deployit':
+  service { 'deployit': 
     ensure => running,
     enable => true,
   }

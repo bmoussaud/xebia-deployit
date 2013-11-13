@@ -1,8 +1,8 @@
 fixtures:
   repositories:
-    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
-    pe_gem: git://github.com/puppetlabs/puppetlabs-pe_gem.git
-    sudo: git://github.com/puppetlabs/puppetlabs-sudo.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    pe_gem: https://github.com/puppetlabs/puppetlabs-pe_gem.git
+    sudo: https://github.com/puppetlabs/puppetlabs-sudo.git
     inifile: https://github.com/puppetlabs/puppetlabs-inifile.git
   symlinks:
     deployit: "#{source_dir}"

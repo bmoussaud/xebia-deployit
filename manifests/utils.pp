@@ -26,7 +26,7 @@ class deployit::utils (
     ensure => directory,
   }
 
-  file { "${utils_dir}/password-encrypt.jar":
+  file { "${utils_dir}/password-encrypt.jar": 
     source => "puppet:///modules/${module_name}/utils/password-encrypt.jar",
   }
 

@@ -2,12 +2,14 @@
 #
 # Install the deployit server
 class deployit::install (
-  $version      = $deployit::version,
-  $base_dir     = $deployit::base_dir,
-  $tmp_dir      = $deployit::tmp_dir,
-  $os_user      = $deployit::os_user,
-  $os_group     = $deployit::os_group,
-  $install_type = $deployit::install_type
+  $version         = $deployit::version,
+  $base_dir        = $deployit::base_dir,
+  $tmp_dir         = $deployit::tmp_dir,
+  $os_user         = $deployit::os_user,
+  $os_group        = $deployit::os_group,
+  $install_type    = $deployit::install_type,
+  $server_home_dir = $deployit::server_home_dir,
+  $cli_home_dir    = $deployit::cli_home_dir,
 ) {
 
   # Variables
@@ -27,6 +29,8 @@ class deployit::install (
     -> Package[$xtra_packages]
     -> File[ '/var/log/deployit']
     -> File['/etc/init.d/deployit']
+    -> File[$server_home_dir]
+    -> File[$cli_home_dir]
 
   # Resource defaults
   File {
@@ -151,6 +155,19 @@ class deployit::install (
     mode    => '0700'
   }
 
+# setup homedir
+  file {"${server_home_dir}":
+    ensure  => link,
+    target   => $server_dir,
+    owner   => $os_user,
+    group    => $os_group
+  }
 
+  file {"${cli_home_dir}":
+    ensure  => link,
+    target   => $cli_dir,
+    owner   => $os_user,
+    group    => $os_group
+  }
 
 }
