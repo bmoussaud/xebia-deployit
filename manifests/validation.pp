@@ -39,7 +39,7 @@ class deployit::validation (
   validate_bool(str2bool($deployit::server))
   validate_bool(str2bool($deployit::ssl))
   validate_bool(str2bool($deployit::client_sudo))
-  validate_bool(str2bool($deployit::export_resources))
+  validate_bool(str2bool($deployit::use_exported_resources))
   validate_bool(str2bool($deployit::enable_housekeeping))
   # hash validation
   validate_hash($deployit::client_cis)

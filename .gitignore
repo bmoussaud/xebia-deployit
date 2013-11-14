@@ -4,3 +4,5 @@ spec/fixtures/*
 vendor/*
 *.zip
 .bundle
+files/keys/*
+files/keys/*.pub

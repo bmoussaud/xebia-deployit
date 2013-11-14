@@ -1,0 +1,143 @@
+{
+  "name": "xebia-deployit",
+  "version": "1.0.0",
+  "summary": "Puppet module for deployit",
+  "author": "xebia",
+  "description": "This module can be used to install and configure a deployit infrastructure",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": "\u003e\u003d 4.1.0"
+    },
+    {
+      "name": "puppetlabs/pe_gem",
+      "version_requirement": "\u003e\u003d 1.0.0"
+    },
+    {
+      "name": "puppetlabs/inifile",
+      "version_requirement": "\u003e\u003d 1.0.0"
+    }
+  ],
+  "types": [
+    {
+      "properties": [
+        {
+          "name": "properties",
+          "doc": "Properties of the CI"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "doc": "The ID/path of the CI"
+        },
+        {
+          "name": "type",
+          "doc": "Type of the CI"
+        },
+        {
+          "name": "discovery",
+          "doc": "Run discovery on the new CI?"
+        },
+        {
+          "name": "discovery_max_wait",
+          "doc": "Maximum wait time for discovery to finish in seconds"
+        },
+        {
+          "name": "rest_url",
+          "doc": "The rest url for making changes to deployit"
+        }
+      ],
+      "providers": [
+        {
+          "name": "rest"
+        }
+      ],
+      "name": "deployit_ci",
+      "doc": "Manage a Deployit Configuration Item"
+    },
+    {
+      "parameters": [
+        {
+          "name": "name",
+          "doc": "just a name "
+        },
+        {
+          "name": "host",
+          "doc": "the resolvable hostname server to be tested "
+        },
+        {
+          "name": "port",
+          "doc": "the resolvable hostname of the authentication server"
+        },
+        {
+          "name": "timeout"
+        }
+      ],
+      "providers": [
+        {
+          "name": "port_check"
+        }
+      ],
+      "name": "deployit_check_connection"
+    },
+    {
+      "properties": [
+        {
+          "name": "members",
+          "doc": "Array of member CIs"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "doc": "Id, must be unique, not used in deployit"
+        },
+        {
+          "name": "env",
+          "doc": "Id of Environment to add members to"
+        },
+        {
+          "name": "rest_url",
+          "doc": "The rest url for making changes to deployit"
+        }
+      ],
+      "providers": [
+        {
+          "name": "rest"
+        }
+      ],
+      "name": "deployit_environment_member",
+      "doc": "Manage Deployit Environment members"
+    },
+    {
+      "properties": [
+        {
+          "name": "value",
+          "doc": "Value of the dictionary entry"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "key",
+          "doc": "The name of the dictionary entry, must be unique"
+        },
+        {
+          "name": "rest_url",
+          "doc": "The rest url for making changes to deployit"
+        }
+      ],
+      "providers": [
+        {
+          "name": "rest"
+        }
+      ],
+      "name": "deployit_dictionary_entry",
+      "doc": "Manage a Deployit Dictionary Entry"
+    }
+  ],
+  "checksums": {},
+  "source": "https://github.com/xebia-puppet/xebia-deployit.git",
+  "project_page": "https://github.com/xebia-puppet/xebia-deployit.git",
+  "license": "Apache V2.0"
+}
