@@ -38,14 +38,17 @@ class deployit (
   $use_exported_resources   = $deployit::params::use_exported_resources,
   $client_cis               = { } ,
   $java_home                = $deployit::params::java_home,
-  $enable_housekeeping      = $deployit::params::enable_housekeeping) inherits deployit::params {
+  $install_java             = $deployit::params::install_java,
+  $enable_housekeeping      = $deployit::params::enable_housekeeping,
+  $install_gems             = $deployit::params::install_gems,
+  $gem_hash                 = $deployit::params::gem_hash) inherits deployit::params {
   # include validation class to check our input
   include validation
 
   # Variables
 
 
-  # include deployit::messages
+  # to serve or not to server
   if str2bool($server) {
     anchor { 'deployit::begin': } -> class { 'deployit::install': } -> class { 'deployit::utils': } -> class { 'deployit::config': }
     ~> class { 'deployit::service': } -> class { 'deployit::import': } -> anchor { 'deployit::end': }
@@ -53,7 +56,9 @@ class deployit (
     if str2bool($enable_housekeeping) {
       Class['deployit::service'] -> class { 'deployit::housekeeping': } -> Class['deployit::import']
     }
-
+    if str2bool($install_gems) {
+      Class ['deployit::service'] -> class{'gems':}  -> Class['deployit::import']
+    }
   } else {
     anchor { 'deployit::begin': } -> class { 'deployit::client::user': } -> class { 'deployit::client::config': } -> anchor { 'deployit::end'
     : }

@@ -41,8 +41,12 @@ class deployit::validation (
   validate_bool(str2bool($deployit::client_sudo))
   validate_bool(str2bool($deployit::use_exported_resources))
   validate_bool(str2bool($deployit::enable_housekeeping))
+  validate_bool(str2bool($deployit::install_java))
+  validate_bool(str2bool($deployit::install_java))
+
   # hash validation
   validate_hash($deployit::client_cis)
+  validate_hash($deployit::gem_hash)
 
   # # contence validation
   # check validity of this module on the specific system
@@ -60,5 +64,4 @@ class deployit::validation (
       fail("unsupported install_type parameter ${deployit::install_type} specified, should be one of: [puppetfiles, packages]")
     }
   }
-
 }

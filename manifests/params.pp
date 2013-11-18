@@ -25,6 +25,15 @@ class deployit::params {
   $use_exported_resources   = false
   $enable_housekeeping      = true
   $java_home = '/usr/lib/jvm/jre-1.6.0-openjdk.x86_64'
+  $install_java             = false
+  $install_gems             = true
+  $gem_hash  = {
+    'xml-simple' => {
+    }
+    ,
+    'restclient' => {
+    }
+  }
 
   if str2bool($ssl) {
     $rest_protocol = 'https://'
@@ -39,4 +48,3 @@ class deployit::params {
     $rest_url = "${rest_protocol}admin:${admin_password}@${http_server_address}:${http_port}${http_context_root}/deployit"
   }
 }
- 
