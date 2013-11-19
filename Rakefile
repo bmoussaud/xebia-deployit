@@ -39,10 +39,10 @@ task :get_source do
 	# read the configfile in ./config
 	config = nil
 	config_file = "./config/source_files.yaml"
-        config = YAML.load_file(config_file) unless config_file == nil
-	
+  config = YAML.load_file(config_file) unless config_file == nil
 	# if the configfile was found and contained sensible information we will loop over the files and download them into the designated paths
-	config.keys.each {|k|
+       
+	config['files'].keys.each {|k|
 	 
 	 # report what where doing
 	 puts "start downloading #{File.basename(k)}"  
@@ -50,11 +50,11 @@ task :get_source do
 	 # get the authentication parameters if any
 	 username = nil
 	 password = nil
-	 username = config[k]['username'] unless config[k]['username'] == nil
-	 password = config[k]['password'] unless config[k]['password'] == nil
+	 username = config['files'][k]['username'] unless config['files'][k]['username'] == nil
+	 password = config['files'][k]['password'] unless config['files'][k]['password'] == nil
 	
 	 # get the download url
-	 download_url = config[k]['download_url']
+	 download_url = config['files'][k]['download_url']
 
 
 	 # setup the mechanize engine
@@ -67,7 +67,11 @@ task :get_source do
 
 	 # add authentication for the download url if the username parameter is filled
          agent.add_auth(download_url, username, password) unless username == nil
-
+   # add proxy settings for the download url if the proxy parameter is filled
+         agent.set_proxy config['proxy']['proxy_host'], \
+           config['proxy']['proxy_port'],\
+           config['proxy']['proxy_username'],\
+           config['proxy_password'] unless config['proxy'] == nil
 	 # download the file and save it to the correct path
          agent.get("#{download_url}").save("#{k}")
 		

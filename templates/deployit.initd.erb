@@ -15,9 +15,10 @@
 . /etc/init.d/functions
 
 RUNNINGUSER="<%= @os_user %>"
-PROG="deployit"
+PROG="jetty"
 PIDFILE="/var/run/deployit.pid"
-DEPLOYIT_HOME="<%= @server_dir %>"
+DEPLOYIT_HOME="<%= @server_home_dir %>"
+JAVA_HOME="<%= java_home %>"
 
 PID=$(ps -fu $RUNNINGUSER | grep $PROG | awk '{print $2}')
 if [ "$PID" != "" ]
@@ -54,9 +55,9 @@ start() {
     echo
     exit 1
   else
-    su - $RUNNINGUSER -c "${DEPLOYIT_HOME}/bin/server.sh > /dev/null &"
-
-    PID=$(ps -fu $RUNNINGUSER | grep $PROG | awk '{print $2}')
+	/bin/su - $RUNNINGUSER -c 'export JAVA_HOME=<%= java_home %>;/bin/sh <%= server_home_dir %>/bin/server.sh 2>&1 &' > /dev/null 2>&1  
+	sleep 3
+	PID=$(ps -fu $RUNNINGUSER | grep $PROG | awk '{print $2}')
     if [ "$PID" != "" ]
     then
       echo ${PID} >$PIDFILE 
@@ -77,7 +78,7 @@ stop() {
   if [ $A_STATUS -eq 0 -o $A_STATUS -eq 2 ] 
   then
     kill -15 $(cat $PIDFILE)
-    count=30
+    count=60
     sleep 0.2
 
     while [ "$(ps -fu $RUNNINGUSER | grep $PROG | awk '{print $2}')" != "" -a $count -ne 0 ]
@@ -97,6 +98,7 @@ stop() {
     rm -f $PIDFILE
     echo -n "$PROG stopped"
     success "$PROG stopped"
+    $A_STATUS=3
     echo
     return 0
   else

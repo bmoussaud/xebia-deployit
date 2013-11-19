@@ -17,7 +17,7 @@ class deployit::housekeeping (
 
   file { "${server_home_dir}/scripts/housekeeping.py":
     ensure => present,
-    source => 'puppet:///deployit/scripts/housekeeping.py',
+    source => 'puppet:///modules/deployit/scripts/housekeeping.py',
   }
 
   cron { 'deployit-housekeeping':

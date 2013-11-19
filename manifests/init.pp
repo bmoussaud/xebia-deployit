@@ -41,7 +41,10 @@ class deployit (
   $install_java             = $deployit::params::install_java,
   $enable_housekeeping      = $deployit::params::enable_housekeeping,
   $install_gems             = $deployit::params::install_gems,
-  $gem_hash                 = $deployit::params::gem_hash) inherits deployit::params {
+  $gem_use_local            = $deployit::params::gem_use_local,
+  $gem_hash                 = $deployit::params::gem_hash,
+  $gem_array                = $deployit::params::gem_array
+  ) inherits deployit::params {
   # include validation class to check our input
   include validation
 

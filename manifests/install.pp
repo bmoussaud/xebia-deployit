@@ -10,26 +10,15 @@ class deployit::install (
   $install_type    = $deployit::install_type,
   $server_home_dir = $deployit::server_home_dir,
   $cli_home_dir    = $deployit::cli_home_dir,
-  $install_java    = $deployit::install_java) {
+  $install_java    = $deployit::install_java,
+  $java_home       = $deployit::java_home) {
   # Variables
   $server_dir = "${base_dir}/deployit-${version}-server"
   $cli_dir    = "${base_dir}/deployit-${version}-cli"
 
-  case $::osfamily {
-    'RedHat' : { $xtra_packages = ['unzip'] }
-    default  : { fail("${::osfamily}:${::operatingsystem} not supported by this module") }
-  }
-
-  if str2bool($install_java) {
-    case $::osfamily {
-      'RedHat' : { $java_packages = ['java-1.6.0-openjdk'] }
-      default  : { fail("${::osfamily}:${::operatingsystem} not supported by this module") }
-    }
-  }
-
   # Dependencies
-  Group[$os_group] -> User[$os_user] -> Package[$xtra_packages, $java_packages] -> File['/var/log/deployit'] -> File['/etc/init.d/deployit'
-    ] -> File[$server_home_dir] -> File[$cli_home_dir]
+  Group[$os_group] -> User[$os_user] -> File['/var/log/deployit'] -> File['/etc/init.d/deployit'] -> File[$server_home_dir] -> File[
+    $cli_home_dir] -> File["${server_home_dir}/scripts"]
 
   # Resource defaults
   File {
@@ -39,6 +28,31 @@ class deployit::install (
   }
 
   # Resources
+  case $::osfamily {
+    'RedHat' : {
+      $xtra_packages = ['unzip']
+      User[$os_user] -> Package[$xtra_packages] -> File['/var/log/deployit']
+
+      package { $xtra_packages: ensure => present }
+    }
+    default  : {
+      fail("${::osfamily}:${::operatingsystem} not supported by this module")
+    }
+  }
+
+  if str2bool($install_java) {
+    case $::osfamily {
+      'RedHat' : {
+        $java_packages = ['java-1.6.0-openjdk']
+        User[$os_user] -> Package[$java_packages] -> File['/var/log/deployit']
+
+        package { $java_packages: ensure => present }
+      }
+      default  : {
+        fail("${::osfamily}:${::operatingsystem} not supported by this module")
+      }
+    }
+  }
 
   # user and group
 
@@ -48,12 +62,6 @@ class deployit::install (
     ensure     => present,
     gid        => $os_group,
     managehome => true
-  }
-
-  package { [
-    $xtra_packages,
-    $java_packages]:
-    ensure => present
   }
 
   # check to see if where on a redhatty system and shut iptables down quicker than you can say wtf
@@ -147,6 +155,12 @@ class deployit::install (
   file { $cli_home_dir:
     ensure => link,
     target => $cli_dir,
+    owner  => $os_user,
+    group  => $os_group
+  }
+
+  file { "${server_home_dir}/scripts":
+    ensure => directory,
     owner  => $os_user,
     group  => $os_group
   }
