@@ -3,11 +3,11 @@ files:
   './files/sources/deployit-3.9.3-server.zip':
      download_url: "https://tech.xebialabs.com/download/deployit/3.9.3/deployit-3.9.3-server.zip"
      username: 'download'
-     password: 'X3b1aL@bs'
+     password: '*********'
   './files/sources/deployit-3.9.3-cli.zip':
      download_url: "https://tech.xebialabs.com/download/deployit/3.9.3/deployit-3.9.3-cli.zip"
      username: 'download'
-     password: 'X3b1aL@bs'
+     password: '********'
   './files/gems/xml-simple-1.1.2.gem':
      download_url: "http://rubygems.org/downloads/xml-simple-1.1.2.gem"
   './files/gems/rest-client-1.6.7.gem':
