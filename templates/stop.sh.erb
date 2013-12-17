@@ -1,0 +1,5 @@
+pid=`ps -ef | grep server-core | grep -v grep | awk '{ print $2 }'`
+
+kill -TERM ${pid}
+
+exit $?

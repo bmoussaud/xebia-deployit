@@ -1,0 +1,7 @@
+pid=`ps -ef | grep server-core | grep -v grep | awk '{ print $2 }'`
+
+if [ $pid ]; then
+  echo "Deployit is running..."
+else
+  echo "Deployit is stopped..."
+fi

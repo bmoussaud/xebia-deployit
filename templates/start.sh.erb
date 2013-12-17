@@ -1,0 +1,6 @@
+#/bin/sh
+
+# Start the Deployit server ...
+/bin/su - <%= os_user %> -c 'export JAVA_HOME=<%= java_home %>;/bin/sh <%= server_home_dir %>/bin/server.sh 2>&1 &' > /dev/null 2>&1
+
+exit $?
