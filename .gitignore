@@ -2,8 +2,8 @@ spec/fixtures/*
 .DS_*
 .rspec_system
 vendor/*
-*.zip
+*.zip*
 .bundle
 files/keys/*
 files/keys/*.pub
-*.gem
+*.gem*
