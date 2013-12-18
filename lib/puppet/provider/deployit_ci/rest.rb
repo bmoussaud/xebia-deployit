@@ -69,7 +69,7 @@ Puppet::Type.type(:deployit_ci).provide(:rest) do
     rest_put "repository/ci/#{resource[:id]}", ci_xml
   end
 
-  private
+  #private
 
   def rest_get(service)
     RestClient.get "#{resource[:rest_url]}/#{service}", {:accept => :xml, :content_type => :xml }
